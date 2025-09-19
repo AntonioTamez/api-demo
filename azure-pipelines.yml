@@ -12,6 +12,21 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
+# steps:
+# - script: dotnet build --configuration $(buildConfiguration)
+#   displayName: 'dotnet build $(buildConfiguration)'
+
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+# 1. Instalar .NET 8
+- task: UseDotNet@2
+  displayName: 'Instalar .NET $(dotnetVersion)'
+  inputs:
+    packageType: 'sdk'
+    version: '$(dotnetVersion)'
+
+# 2. Restaurar paquetes
+- task: DotNetCoreCLI@2
+  displayName: 'Restaurar paquetes NuGet'
+  inputs:
+    command: 'restore'
+    projects: '$(Build.SourcesDirectory)/api-demo.sln'
