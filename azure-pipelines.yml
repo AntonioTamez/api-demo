@@ -29,4 +29,4 @@ steps:
   displayName: 'Restaurar paquetes NuGet'
   inputs:
     command: 'restore'
-    projects: 'api-demo.sln'
+    projects: 'api-demo/api-demo/api-demo.csproj'
